@@ -15,16 +15,23 @@ export const created = async (data: any): Promise<HttpResponse> => {
   }
 }
 
-export const noContent = async (): Promise<HttpResponse> => {
+export const noContent = async (message?: string): Promise<HttpResponse> => {
   return {
     statusCode: StatusCode.NO_CONTENT,
-    body: null
+    body: message ? { message: message } : null
   }
 }
 
-export const badRequest = async (): Promise<HttpResponse> => {
+export const badRequest = async (message?: string): Promise<HttpResponse> => {
   return {
     statusCode: StatusCode.BAD_REQUEST,
-    body: null
+    body: message ? { message: message } : null
+  }
+}
+
+export const notFound = async (message?: string): Promise<HttpResponse> => {
+  return {
+    statusCode: StatusCode.NOT_FOUND,
+    body: message ? { message: message } : null
   }
 }
