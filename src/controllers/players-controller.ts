@@ -1,8 +1,24 @@
 import { Request, Response } from "express"
-import { getPlayerService } from "../services/player-services"
+import * as PlayersService from "../services/player-services"
 
 export const getPlayer = async (req: Request, res: Response) => {
-  const httpResponse = await getPlayerService()
+  const httpResponse = await PlayersService.getPlayerService()
+
+  res.status(httpResponse.statusCode).json(httpResponse.body)
+}
+
+export const getPlayerById = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id)
+
+  const httpResponse = await PlayersService.getPlayerByIdService(id)
+
+  res.status(httpResponse.statusCode).json(httpResponse.body)
+}
+
+export const postPlayer = async (req: Request, res: Response) => {
+  const bodyValue = req.body
+
+  const httpResponse = await PlayersService.createPlayerService(bodyValue)
 
   res.status(httpResponse.statusCode).json(httpResponse.body)
 }

@@ -6,12 +6,34 @@ const dataFile = path.join(__dirname, '..', 'data', 'players.json')
 const language = 'utf-8'
 
 
-const database: PlayerModel[] = JSON.parse(fs.readFileSync(dataFile, language))
+const databaseRawData = fs.readFileSync(dataFile, language)
+let database: PlayerModel[]
 
-export const findAllPlayers = async (): Promise<PlayerModel[]> => {
+try { database = JSON.parse(databaseRawData) }
+catch (error) { database = [] }
+
+
+export const findAllPlayers = async (): Promise<PlayerModel[] | undefined> => {
   return database
 }
 
 export const findPlayerById = async (id: number): Promise<PlayerModel | undefined> => {
-  return database.find((player) => player.id === id)
+  if (database) return database.find((player) => player.id === id)
+  else return undefined
+}
+
+export const insertPlayer = async (player: PlayerModel) => {
+
+  const nextIndex = (database && database.length > 0)
+    ? Math.max(...database.map(data => data.id)) + 1
+    : 1
+
+  const { id, ...playerNoId } = player;
+
+  database.push({
+    id: nextIndex,
+    ...playerNoId
+  })
+
+  fs.writeFileSync(dataFile, JSON.stringify(database), language)
 }
