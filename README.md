@@ -25,7 +25,7 @@ Este projeto é uma API REST construída com Node.js, TypeScript e Express, proj
 
 O projeto segue o padrão N-Layers, dividido em **controllers**, **services**, **repositories**, e **models**. Abaixo está o diagrama representando a arquitetura:
 
-![Arquitetura N-Layers](./docs/Champions%20League.tldr)
+![Arquitetura N-Layers](./docs/architecture.svg)
 
 ### Estrutura do Projeto
 
