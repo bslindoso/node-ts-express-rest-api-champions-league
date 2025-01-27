@@ -1,11 +1,13 @@
 import { Router } from "express";
 import * as PlayerController from "./controllers/players-controller";
+import * as ClubController from "./controllers/clubs-controller"
 
 const router = Router()
 
 // GET
 router.get('/players', PlayerController.getPlayer)
 router.get('/players/:id', PlayerController.getPlayerById)
+router.get('/clubs', ClubController.getClubs)
 
 // POST
 router.post('/players', PlayerController.postPlayer)
